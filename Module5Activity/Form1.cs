@@ -19,7 +19,7 @@ namespace Module5Activity
         }
 
         StreamReader inputfile;
-        String fileContents = "";
+        List<String> fileContents = new List<string>();
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -30,8 +30,9 @@ namespace Module5Activity
                 inputfile = File.OpenText(openFileDialog1.FileName);
                 while (!inputfile.EndOfStream)
                 {
-                    fileContents = fileContents + (inputfile.ReadLine());
+                    fileContents.Add(inputfile.ReadLine());
                 }
+                inputfile.Close();
             }
             else if (result == DialogResult.Cancel)
             {
@@ -43,18 +44,26 @@ namespace Module5Activity
 
         private void button2_Click(object sender, EventArgs e)
         {
-            bool done = false;
-            string currLine; 
-            if (fileContents == "")
+        
+            
+            int currLine = 0; 
+            if (fileContents.Count == 0)
             {
                 return;
             } else
             {
-                while (!done)
+                listBox1.Items.Clear();
+                while (currLine < fileContents.Count) 
                 {
-                    currLine = 
+                    if (fileContents[currLine].Contains(textBox2.Text))
+                    {
+                        listBox1.Items.Insert(listBox1.Items.Count,fileContents[currLine]);
+                    }
+                    currLine++;
                 }
+                
             }
+           
         }
     }
 }
